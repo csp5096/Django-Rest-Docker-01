@@ -13,6 +13,7 @@ class ToySerializer(serializers.Serializer):
         return Toy.objects.create(**validate_data)
 
     def update(self, instance, validate_data):
+        # created attribute ommited.
         instance.name = validate_data.get('name', instance.name)
         instance.description = validate_data.get('description', instance.description)
         instance.release_date = validate_data.get('release_date', instance.release_date)
