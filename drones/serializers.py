@@ -51,7 +51,7 @@ class CompeitionsSerailizer(serializers.HyperlinkedModelSerializer):
         )
 
 class PilotSerializer(serializers.HyperlinkedModelSerializer):
-    competitions = CompeitionsSerailizer(many=Ture, read_only=True)
+    competitions = CompeitionsSerailizer(many=True, read_only=True)
     gender = serializers.ChoiceField(
         choices=Pilot.GENDER_CHOICES
     )
@@ -72,7 +72,7 @@ class PilotSerializer(serializers.HyperlinkedModelSerializer):
             'competitions'
         )
 
-class PiolotCompetitionSerializer(serializers.ModelSerializer):
+class PilotCompetitionSerializer(serializers.ModelSerializer):
     # Display the pilot's name
     pilot = serializers.SlugRelatedField(
         queryset=Pilot.objects.all(),
@@ -80,7 +80,7 @@ class PiolotCompetitionSerializer(serializers.ModelSerializer):
     )
     # Dispaly the drone's name
     drone = serializers.SlugRelatedField(
-        queryset=Drone.objects.al(),
+        queryset=Drone.objects.all(),
         slug_field='name'
     )
 
