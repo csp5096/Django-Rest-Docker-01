@@ -2,6 +2,8 @@ from django.shortcuts import render
 from rest_framework import generics, permissions
 from rest_framework.response import Response
 from rest_framework.reverse import reverse
+from rest_framework.permissions import IsAuthenticated
+from rest_framework.authentication import TokenAuthentication
 from django_filters import filters
 from django_filters import (
     AllValuesFilter,
@@ -117,11 +119,23 @@ class PilotList(generics.ListCreateAPIView):
         'name',
         'races_count',
     )
+    authentication_classes = (
+        TokenAuthentication,
+    )
+    permission_classes = (
+        IsAuthenticated,
+    )
 
 class PilotDetail(generics.RetrieveUpdateDestroyAPIView):
     queryset = Pilot.objects.all()
     serializer_class = PilotSerializer
     name = 'pilot-detail'
+    authentication_classes = (
+        TokenAuthentication,
+    )
+    permission_classes = (
+        IsAuthenticated,
+    )
 
 class CompetitionFilter(django_filters.FilterSet):
     from_achievement_date = django_filters.DateTimeFilter(
